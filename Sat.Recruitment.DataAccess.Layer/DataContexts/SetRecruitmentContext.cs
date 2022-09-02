@@ -2,13 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Sat.Recruitment.Model;
 
-namespace DataAccess
+namespace Sat.Recruitment.DataAccess
 {
-    public class SetRecruitmentContext : DbContext
+    public class SatRecruitmentContext : DbContext
     {
-        public SetRecruitmentContext() { }
+        public SatRecruitmentContext() { }
 
-        public SetRecruitmentContext(DbContextOptions<SetRecruitmentContext> options)
+        public SatRecruitmentContext(DbContextOptions<SatRecruitmentContext> options)
             : base(options)
         {
         }

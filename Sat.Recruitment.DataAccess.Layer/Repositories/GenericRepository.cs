@@ -1,4 +1,4 @@
-﻿using DataAccess;
+﻿
 using Microsoft.EntityFrameworkCore;
 using Sat.Recruitment.Model;
 using System;
@@ -12,8 +12,8 @@ namespace Sat.Recruitment.DataAccess.Repositories
 {
     public class GenericRepository<TData> : IGenericRepository<TData> where TData : Entity
     {
-        protected readonly SetRecruitmentContext _dataContext;
-        public GenericRepository(SetRecruitmentContext dataContext)
+        protected readonly SatRecruitmentContext _dataContext;
+        public GenericRepository(SatRecruitmentContext dataContext)
         {
             _dataContext = dataContext;
         }
