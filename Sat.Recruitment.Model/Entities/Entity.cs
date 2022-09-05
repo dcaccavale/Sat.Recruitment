@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Sat.Recruitment.Model
+namespace Sat.Recruitment.Model.Entities
 {
-    public  class Entity
+    public class Entity
     {
         [Key]
         public int Id { get; set; }
