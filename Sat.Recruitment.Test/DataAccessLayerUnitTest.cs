@@ -13,7 +13,7 @@ using Moq;
 
 using Sat.Recruitment.DataAccess;
 using Sat.Recruitment.DataAccess.Repositories;
-using Sat.Recruitment.Model;
+using Sat.Recruitment.Model.Entities;
 using Xunit;
 
 namespace Sat.Recruitment.Test
