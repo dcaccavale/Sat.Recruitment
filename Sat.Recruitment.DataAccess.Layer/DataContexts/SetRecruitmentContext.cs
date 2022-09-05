@@ -12,7 +12,7 @@ namespace Sat.Recruitment.DataAccess
             : base(options)
         {
         }
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
       
 
 
