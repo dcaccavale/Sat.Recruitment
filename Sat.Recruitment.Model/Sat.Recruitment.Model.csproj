@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sat.Recruitment.Helpers\Sat.Recruitment.Helpers.csproj" />
+  </ItemGroup>
+
 </Project>

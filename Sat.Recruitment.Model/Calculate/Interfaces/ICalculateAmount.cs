@@ -8,6 +8,6 @@ namespace Sat.Recruitment.Model.Interfaces
 {
     public  interface ICalculateAmount
     {
-         double Calculate(double money);
+         decimal  Execute(decimal money);
     }
 }
