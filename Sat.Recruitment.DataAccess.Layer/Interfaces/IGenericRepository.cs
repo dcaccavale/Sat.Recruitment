@@ -15,6 +15,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         Task<IEnumerable<TData>> GetAll();
         Task<TData> GetById(Guid guid);
         Task<IEnumerable<TData>> GetByCriteria(Expression<Func<TData, bool>> predicate = null);
+        Task<bool> Any<T>(Expression<Func<T, bool>> predicate);
 
     }
 }

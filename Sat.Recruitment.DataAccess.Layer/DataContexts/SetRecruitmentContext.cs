@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Sat.Recruitment.Model;
+using Sat.Recruitment.Model.Entities;
 
 namespace Sat.Recruitment.DataAccess
 {

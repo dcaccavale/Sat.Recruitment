@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Sat.Recruitment.Model;
+using Sat.Recruitment.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +63,18 @@ namespace Sat.Recruitment.DataAccess.Repositories
             if (include != null)
                 query = include(query);
             return await query.SingleOrDefaultAsync(s => s.IdGuid == Id);
+        }
+
+        /// <summary>
+        /// Return true if exist any object 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public async Task<bool> Any<T>(Expression<Func<T, bool>> predicate) where T : Entity
+        {
+            var query = _dataContext.Set<T>().AsQueryable();
+            return await query.AnyAsync(predicate);
         }
 
         /// <summary>

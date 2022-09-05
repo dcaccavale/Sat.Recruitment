@@ -1,4 +1,4 @@
-﻿using Sat.Recruitment.Model;
+﻿using Sat.Recruitment.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.DataAccess.Repositories
 {
-    public  interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<User>
     {
+       
     }
 }
