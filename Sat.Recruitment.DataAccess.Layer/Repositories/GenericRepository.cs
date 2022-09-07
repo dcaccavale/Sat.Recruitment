@@ -13,7 +13,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
     /// <summary>
     /// base class to inherit repositories of bussiness entities objects that you want to persist through EF ORM
     /// </summary>
-    public class GenericRepository
+    public class GenericRepository : IGenericRepositoryQueries , IGenericRepositoryOperations
     {
         protected readonly SatRecruitmentContext _dataContext;
         public GenericRepository(SatRecruitmentContext dataContext)

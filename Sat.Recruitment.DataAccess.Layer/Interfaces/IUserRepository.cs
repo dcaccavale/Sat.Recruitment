@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.DataAccess.Repositories
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepositoryOperations , IGenericRepositoryQueries
     {
        
     }

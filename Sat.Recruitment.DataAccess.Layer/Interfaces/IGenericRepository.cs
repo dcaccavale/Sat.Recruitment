@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.DataAccess.Repositories
 {
-    public interface IGenericRepository<TData>
+    public interface IGenericRepositoryQueries
     {
         Task<IList<T>> GetAllAsync<T>(
          Expression<Func<T, bool>> predicate = null,
@@ -22,10 +22,15 @@ namespace Sat.Recruitment.DataAccess.Repositories
         Task<bool> Any<T>(Expression<Func<T, bool>> predicate) where T : Entity;
         Task<T?> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> predicate = null,
         Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null) where T : Entity;
+     
+
+    }
+
+    public interface IGenericRepositoryOperations
+    {
         Task<T> Add<T>(T entity) where T : Entity;
         Task<T> Update<T>(T entity) where T : Entity;
         Task<T> Delete<T>(T entity) where T : Entity;
         Task<T> Remove<T>(T entity) where T : Entity;
-
     }
 }
