@@ -26,11 +26,11 @@ namespace Sat.Recruitment.DataAccess.Repositories
         /// <param name="take"></param>
         /// <param name="include"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> GetAllAsync<T>(
+        public async  Task<IList<T>> GetAllAsync<T>(
           Expression<Func<T, bool>> predicate = null,
           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
           int? take = null,
-          Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null) where T : class
+          Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null) where T : Entity
         {
             var query = _dataContext.Set<T>().AsQueryable();
             if (include != null)
@@ -46,7 +46,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
                 query = query.Take(Convert.ToInt32(take));
 
 
-            return await query.ToListAsync();
+            return  query.ToListAsync<T>().Result;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         /// <param name="Id"></param>
         /// <param name="include"></param>
         /// <returns></returns>
-        public async Task<T?> GetAsync<T>(Guid Id, Func<IQueryable<T>,
+        public async Task<T> GetAsync<T>(Guid Id, Func<IQueryable<T>,
             IIncludableQueryable<T, object>> include = null) where T : Entity
         {
             var query = _dataContext.Set<T>().AsQueryable();
@@ -84,7 +84,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         /// <param name="predicate"></param>
         /// <param name="include"></param>
         /// <returns></returns>
-        public async Task<T?> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> predicate = null,
+        public async Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> predicate = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null) where T : Entity
         {
             var query = _dataContext.Set<T>().AsQueryable();
@@ -101,8 +101,10 @@ namespace Sat.Recruitment.DataAccess.Repositories
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<T?> Add<T>(T entity) where T : Entity
+        public async Task<T> Add<T>(T entity) where T : Entity
         {
+            entity.State = StateEntity.Created;
+            entity.CreateTimeSpan = new TimeSpan();
             _dataContext.Set<T>().Add(entity);
             await _dataContext.SaveChangesAsync();
             return await GetAsync<T>(entity.IdGuid);
@@ -114,8 +116,10 @@ namespace Sat.Recruitment.DataAccess.Repositories
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<T?> Update<T>(T entity) where T : Entity
+        public async Task<T> Update<T>(T entity) where T : Entity
         {
+            entity.State = StateEntity.Updated;
+            entity.UpdatedTimeSpan = new TimeSpan();
             _dataContext.Set<T>().Update(entity);
             await _dataContext.SaveChangesAsync();
             return await GetAsync<T?>(entity.IdGuid);
@@ -126,9 +130,24 @@ namespace Sat.Recruitment.DataAccess.Repositories
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task<T?> Delete<T>(T entity) where T : Entity
+        public async Task<T> Remove<T>(T entity) where T : Entity
         {
             _dataContext.Set<T>().Remove(entity);
+            _dataContext.SaveChanges();
+            return await GetAsync<T>(entity.IdGuid);
+        }
+
+        /// <summary>
+        /// Generic fisical Delete 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<T> Delete<T>(T entity) where T : Entity
+        {
+            entity.State = StateEntity.Deleted;
+            entity.DeleteTimeSpan = new TimeSpan();
+            _dataContext.Set<T>().Update(entity);
             _dataContext.SaveChanges();
             return await GetAsync<T>(entity.IdGuid);
         }

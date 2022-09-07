@@ -1,4 +1,6 @@
-﻿using Sat.Recruitment.Model;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using Sat.Recruitment.Model;
+using Sat.Recruitment.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +10,22 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.DataAccess.Repositories
 {
-    public  interface IGenericRepository<TData>
+    public interface IGenericRepository<TData>
     {
-        Task<TData> Add(TData data);
-        Task<TData> Update(TData data);
-        Task<IEnumerable<TData>> GetAll();
-        Task<TData> GetById(Guid guid);
-        Task<IEnumerable<TData>> GetByCriteria(Expression<Func<TData, bool>> predicate = null);
-        Task<bool> Any<T>(Expression<Func<T, bool>> predicate);
+        Task<IList<T>> GetAllAsync<T>(
+         Expression<Func<T, bool>> predicate = null,
+         Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+         int? take = null,
+         Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null) where T : Entity;
+        Task<T> GetAsync<T>(Guid Id, Func<IQueryable<T>,
+           IIncludableQueryable<T, object>> include = null) where T : Entity;
+        Task<bool> Any<T>(Expression<Func<T, bool>> predicate) where T : Entity;
+        Task<T?> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> predicate = null,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null) where T : Entity;
+        Task<T> Add<T>(T entity) where T : Entity;
+        Task<T> Update<T>(T entity) where T : Entity;
+        Task<T> Delete<T>(T entity) where T : Entity;
+        Task<T> Remove<T>(T entity) where T : Entity;
 
     }
 }

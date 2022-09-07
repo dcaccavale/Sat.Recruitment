@@ -12,8 +12,8 @@ using Sat.Recruitment.DataAccess;
 namespace Sat.Recruitment.DataAccess.Migrations
 {
     [DbContext(typeof(SatRecruitmentContext))]
-    [Migration("20220902221002_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220906124211_Modl")]
+    partial class Modl
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Sat.Recruitment.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Sat.Recruitment.Model.User", b =>
+            modelBuilder.Entity("Sat.Recruitment.Model.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,25 +33,44 @@ namespace Sat.Recruitment.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<TimeSpan>("CreateTimeSpan")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("DeleteTimeSpan")
+                        .HasColumnType("time");
+
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("IdGuid")
-                        .HasColumnType("uniqueidentifier");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
-                    b.Property<double>("Money")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Money")
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("UpdatedTimeSpan")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
