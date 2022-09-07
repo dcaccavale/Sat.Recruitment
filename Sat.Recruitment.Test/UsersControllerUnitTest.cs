@@ -3,6 +3,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Sat.Recruitment.Api;
 using Sat.Recruitment.Api.Controllers;
 using Sat.Recruitment.Model.Entities;
@@ -26,7 +27,8 @@ namespace Sat.Recruitment.Test
                      .UseStartup<Startup>()
                      .Build();
             var serviceProvider = new DependencyResolverHelper(webHost).GetService<IUserServiceModel>();
-            _usersController = new UsersController(serviceProvider);
+            var logger = new DependencyResolverHelper(webHost).GetService<ILogger<UsersController>>();
+            _usersController = new UsersController(serviceProvider, logger);
 
         }
 
@@ -36,7 +38,6 @@ namespace Sat.Recruitment.Test
             Random random = new Random();
             var userRequest = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = "prueba" + Guid.NewGuid().ToString(),
                 Email = Guid.NewGuid() + "prueba@gmail.com",
                 Address = Guid.NewGuid() + "calle charles 855",
@@ -56,7 +57,6 @@ namespace Sat.Recruitment.Test
             Random random = new Random();
             var userRequest = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = "prueba" + Guid.NewGuid().ToString(),
                 Email = Guid.NewGuid() + "prueba@gmail.com",
                 Address = Guid.NewGuid() + "calle charles 855",

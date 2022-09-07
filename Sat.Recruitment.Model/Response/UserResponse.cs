@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Model.Response
 {
+    /// <summary>
+    /// class to send the resulting data when a call is made to the api controller
+    /// </summary>
     public class UserResponse
     {
         public Guid IdGuid { get; set; }

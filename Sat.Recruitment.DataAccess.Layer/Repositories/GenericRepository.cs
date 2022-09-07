@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.DataAccess.Repositories
 {
+    /// <summary>
+    /// base class to inherit repositories of bussiness entities objects that you want to persist through EF ORM
+    /// </summary>
     public class GenericRepository
     {
         protected readonly SatRecruitmentContext _dataContext;

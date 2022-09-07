@@ -53,7 +53,6 @@ namespace Sat.Recruitment.Test
         {
             UserRequest user = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = "prueba" + Guid.NewGuid().ToString(),
                 Email = Guid.NewGuid() + "prueba@gmail.com",
                 Address = Guid.NewGuid() + "calle charles 855",
@@ -63,7 +62,7 @@ namespace Sat.Recruitment.Test
             };
             var result = _mapper.Map<User>(user);
             Assert.NotNull(result);
-            Assert.True(result.IdGuid == user.IdGuid && result.Address == user.Address &&
+            Assert.True(result.Address == user.Address &&
                 result.Email == user.Email && result.Name == user.Name && result.Phone == user.Phone && result.Type == user.UserType);
             Assert.IsType<User>(result);
         }

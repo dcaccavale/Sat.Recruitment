@@ -2,6 +2,9 @@
 
 namespace Sat.Recruitment.Model.Entities
 {
+    /// <summary>
+    /// Base class to inherit all class to persist 
+    /// </summary>
     public class Entity
     {
         [Key]

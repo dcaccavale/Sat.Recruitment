@@ -39,7 +39,6 @@ namespace Sat.Recruitment.Test
          
             var userRequest = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = "prueba" + Guid.NewGuid().ToString(),
                 Email = Guid.NewGuid() + "prueba@gmail.com",
                 Address = Guid.NewGuid() +"calle charles 855",
@@ -48,7 +47,7 @@ namespace Sat.Recruitment.Test
                 Money = random.Next(random.Next(0, 200)),
             };
             var response = await _serviceProvider.Create(userRequest);
-            Assert.True(userRequest.IdGuid == response.IdGuid);
+            Assert.True(response.IdGuid != Guid.Empty);
         }
 
 
@@ -58,7 +57,6 @@ namespace Sat.Recruitment.Test
             Random random = new Random();
             var userRequest = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = "prueba" + Guid.NewGuid().ToString(),
                 Email = Guid.NewGuid() + "prueba@gmail.com",
                 Address = Guid.NewGuid() + "calle charles 855",
@@ -78,7 +76,6 @@ namespace Sat.Recruitment.Test
 
             var userRequest = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = String.Empty,
                 Email = Guid.NewGuid() + "prueba@gmail.com",
                 Address = Guid.NewGuid() + "calle charles 855",
@@ -95,7 +92,6 @@ namespace Sat.Recruitment.Test
             Random random = new Random();
             var userRequest = new UserRequest
             {
-                IdGuid = Guid.NewGuid(),
                 Name = String.Empty,
                 Email = "123456",
                 Address = Guid.NewGuid() + "calle charles 855",

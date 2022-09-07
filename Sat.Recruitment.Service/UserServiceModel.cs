@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Service
 {
+    /// <summary>
+    /// Class of service to access the business logic for user management
+    /// </summary>
     public class UserServiceModel : IUserServiceModel
     {
         public IUserRepository _userRepository;
@@ -34,17 +37,17 @@ namespace Sat.Recruitment.Service
         public async Task<UserResponse> Create(UserRequest userRequest)
         {
 
-            User aUser;
-            UserRequestValidate userValidate = new UserRequestValidate();
-            var validatorResult = userValidate.Validate(userRequest);
+            User aUser =  _mapper.Map<User>(userRequest);
+            UserValidate userValidate = new UserValidate();
+            var validatorResult = userValidate.Validate(aUser);
             if (validatorResult.IsValid)
             {
 
                 if (!await IsDuplicated(userRequest, _userRepository))
                 {
-                    aUser = _mapper.Map<User>(userRequest);
                     aUser.Money = CalculateUserAmountManager.GetCalculate(aUser.Type).Execute(aUser.Money);
                     aUser = await _userRepository.Add(aUser);
+                    _logger.Log(LogLevel.Information, "Create User", aUser);
                     return _mapper.Map<UserResponse>(aUser);
                 }
                 else
@@ -66,7 +69,7 @@ namespace Sat.Recruitment.Service
         private Task<bool> IsDuplicated(UserRequest userRequest, IUserRepository userRepository)
         {
             return _userRepository.Any<User>(user => (user.Email == userRequest.Email || user.Phone == userRequest.Phone)
-            || (user.Name == userRequest.Name && user.Address == userRequest.Address) || user.IdGuid == userRequest.IdGuid
+            || (user.Name == userRequest.Name && user.Address == userRequest.Address) 
             );
         }
     }

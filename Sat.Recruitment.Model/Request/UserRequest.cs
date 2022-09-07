@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Model.Request
 {
-    public  class UserRequest
+    /// <summary>
+    /// class to retrieve the data sent in request when calling the method in the api controller  
+    /// </summary>
+    public class UserRequest
     {
-        public Guid IdGuid { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }

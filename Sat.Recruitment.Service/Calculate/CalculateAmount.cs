@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Model
 {
+    /// <summary>
+    /// Auxiliary class to calculate percentaje
+    /// </summary>
     internal class CalculateGif
     {
         internal static  decimal Calculate(decimal money, decimal percentage)
@@ -15,7 +18,9 @@ namespace Sat.Recruitment.Model
             return gif;
         }
     }
-
+    /// <summary>
+    /// Class to calculate money to Normal User
+    /// </summary>
     public class CalculateNormal : ICalculateAmount
     {
         public decimal Execute (decimal  money)
@@ -32,6 +37,9 @@ namespace Sat.Recruitment.Model
             return CalculateGif.Calculate(money, multiplicator);
         }
     }
+    /// <summary>
+    /// Class to calculate money to Super User
+    /// </summary>
     public class CalculateSuperUser: ICalculateAmount
     {
         public decimal Execute (decimal  money)
@@ -44,6 +52,9 @@ namespace Sat.Recruitment.Model
             return CalculateGif.Calculate(money, multiplicator);
         }
     }
+    /// <summary>
+    /// Class to calculate money to Premium User
+    /// </summary>
     public class CalculatePremium : ICalculateAmount
     {
         public decimal Execute (decimal  money)

@@ -8,6 +8,9 @@ using Sat.Recruitment.Model.Entities;
 
 namespace Sat.Recruitment.Model.AutoMapper
 {
+    /// <summary>
+    ///Use to configurate AutoMapper
+    /// </summary>
     public class DomainProfile : Profile
     {
         public DomainProfile() 
@@ -20,7 +23,6 @@ namespace Sat.Recruitment.Model.AutoMapper
             // Users config
             CreateMap<User, UserResponse>();
             CreateMap<UserRequest, User>();
-            CreateMap<UserRequest, UserResponse>();
         }
     }
 }

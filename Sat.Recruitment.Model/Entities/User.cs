@@ -2,6 +2,9 @@
 
 namespace Sat.Recruitment.Model.Entities
 {
+    /// <summary>
+    /// Type of Users 
+    /// </summary>
     public enum UserType
     {
         Normal,
@@ -9,6 +12,9 @@ namespace Sat.Recruitment.Model.Entities
         Premium
 
     }
+    /// <summary>
+    /// User class of bussiness model
+    /// </summary>
     public class User : Entity
     {
 

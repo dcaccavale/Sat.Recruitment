@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Sat.Recruitment.Model.Entities;
 using Sat.Recruitment.Model.Request;
 using System;
 using System.Text;
@@ -7,12 +8,12 @@ using System.Text;
 namespace Sat.Recruitment.Model.Request.Validations
 {
     /// <summary>
-    /// Use to validate UserRequest class with fluentValidations
+    /// Use to validate User class with fluentValidations
     /// </summary>
-    public class UserRequestValidate : AbstractValidator<UserRequest>
+    public  class UserValidate : AbstractValidator<User>
     {
   
-        public UserRequestValidate()
+        public UserValidate()
         {
            
             // Check name is not null, empty 
