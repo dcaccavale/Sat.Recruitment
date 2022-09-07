@@ -9,22 +9,15 @@
     }
   },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "Sat.Recruitment.Api": {
+    "Sat.Recruitment.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
-      "applicationUrl": "http://localhost:5000",
+      "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SatRecruitmentContext": "Data Source=localhost;Initial Catalog=SatRecruitment;User Id=sa; Password=smart1"
+      },
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }
