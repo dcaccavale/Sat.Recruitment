@@ -11,6 +11,10 @@ namespace Sat.Recruitment.Api.Utils.Extensions
 {
     public static class DatabaseServiceExtensions
     {
+        /// <summary>
+        /// Use to add Database services to inyect in service collection 
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddDatabaseService(this IServiceCollection services)
         {
             services

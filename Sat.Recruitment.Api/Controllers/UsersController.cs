@@ -6,31 +6,34 @@ using Sat.Recruitment.Model.Request.Validations;
 using Sat.Recruitment.Model.Response;
 using Sat.Recruitment.Service;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
-using FluentValidation;
 
 namespace Sat.Recruitment.Api.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
     public partial class UsersController : ControllerBase
     {
         private readonly IUserServiceModel _userServiceModel;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUserServiceModel userServiceModel)
+        public UsersController(IUserServiceModel userServiceModel, ILogger<UsersController> logger)
         {
             _userServiceModel = userServiceModel;
-       
+            _logger = logger;
         }
         [HttpPost]
         [Route("/create-user")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> CreateUser(UserRequest userRequest)
         {
+       
+            UserResponse result = null;
+            HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError;
+            string messagge = string.Empty;
+  
             try
             {
                 UserRequestValidate userValidate = new UserRequestValidate();
@@ -38,19 +41,27 @@ namespace Sat.Recruitment.Api.Controllers
                 if (validatorResult.IsValid)
                 {
 
-                    var result = await _userServiceModel.Create(userRequest);
-                    return result != null ? new WebApiEnvelope<UserResponse>(HttpStatusCode.OK, result).Result
-                           : new WebApiEnvelope<UserResponse>(HttpStatusCode.InternalServerError, result).Result;
+                    result = await _userServiceModel.Create(userRequest);
+                    if (result != null)
+                    {
+                        httpStatusCode = HttpStatusCode.OK;
+                    }
                 }
                 else
                 {
-                    return new WebApiEnvelope<UserResponse>(HttpStatusCode.InternalServerError, null, validatorResult.ToString(" - ")).Result;
+                    messagge = validatorResult.ToString(" - ");
+                    _logger.LogWarning(messagge);
+
                 }
             }
             catch (Exception ex)
             {
-                return new WebApiEnvelope<UserResponse>(HttpStatusCode.InternalServerError, null, ex.Message).Result;
+                _logger.LogError(ex.Message);
+                messagge = "Error to create the user";
             }
+            return new WebApiEnvelope<UserResponse>(httpStatusCode, result, messagge).Result;
+            
+
         }
     }
 

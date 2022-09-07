@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Sat.Recruitment.Api.Utils.Extensions;
-using System;
 namespace Sat.Recruitment.Api
 {
     public class Startup
@@ -26,10 +25,7 @@ namespace Sat.Recruitment.Api
             services.AddRepositoriesServicesExtensions();
             services.AddServiceModelServicesExtensions();
             services.AddAppExtensionsServices();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sat.Recruitment", Version = "v1" });
-            });
+      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
