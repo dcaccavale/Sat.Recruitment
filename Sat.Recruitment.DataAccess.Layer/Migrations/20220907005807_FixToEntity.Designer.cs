@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sat.Recruitment.DataAccess;
 
@@ -11,9 +12,10 @@ using Sat.Recruitment.DataAccess;
 namespace Sat.Recruitment.DataAccess.Migrations
 {
     [DbContext(typeof(SatRecruitmentContext))]
-    partial class SatRecruitmentContextModelSnapshot : ModelSnapshot
+    [Migration("20220907005807_FixToEntity")]
+    partial class FixToEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

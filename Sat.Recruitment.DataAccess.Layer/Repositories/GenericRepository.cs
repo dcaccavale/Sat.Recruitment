@@ -104,7 +104,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         public async Task<T> Add<T>(T entity) where T : Entity
         {
             entity.State = StateEntity.Created;
-            entity.CreateTimeSpan = new TimeSpan();
+            entity.CreateDateTime = DateTime.Now;
             _dataContext.Set<T>().Add(entity);
             await _dataContext.SaveChangesAsync();
             return await GetAsync<T>(entity.IdGuid);
@@ -119,10 +119,10 @@ namespace Sat.Recruitment.DataAccess.Repositories
         public async Task<T> Update<T>(T entity) where T : Entity
         {
             entity.State = StateEntity.Updated;
-            entity.UpdatedTimeSpan = new TimeSpan();
+            entity.UpdatedDateTime = DateTime.Now;
             _dataContext.Set<T>().Update(entity);
             await _dataContext.SaveChangesAsync();
-            return await GetAsync<T?>(entity.IdGuid);
+            return await GetAsync<T>(entity.IdGuid);
         }
         /// <summary>
         /// Generic fisical Delete 
@@ -146,7 +146,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         public async Task<T> Delete<T>(T entity) where T : Entity
         {
             entity.State = StateEntity.Deleted;
-            entity.DeleteTimeSpan = new TimeSpan();
+            entity.DeleteDateTime = DateTime.Now;
             _dataContext.Set<T>().Update(entity);
             _dataContext.SaveChanges();
             return await GetAsync<T>(entity.IdGuid);

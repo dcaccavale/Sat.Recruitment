@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sat.Recruitment.DataAccess;
 
@@ -11,9 +12,10 @@ using Sat.Recruitment.DataAccess;
 namespace Sat.Recruitment.DataAccess.Migrations
 {
     [DbContext(typeof(SatRecruitmentContext))]
-    partial class SatRecruitmentContextModelSnapshot : ModelSnapshot
+    [Migration("20220907005630_FixToAudith")]
+    partial class FixToAudith
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace Sat.Recruitment.DataAccess.Migrations
                     b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeleteDateTime")
+                    b.Property<DateTime>("DeleteDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -67,7 +69,7 @@ namespace Sat.Recruitment.DataAccess.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedDateTime")
+                    b.Property<DateTime>("UpdatedDateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
