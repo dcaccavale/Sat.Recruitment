@@ -20,14 +20,15 @@ namespace Sat.Recruitment.Test
     [CollectionDefinition("ServiceModelUnitTest", DisableParallelization = true)]
     public class ServiceModelUnitTest
     {
-        private readonly DependencyResolverHelper _serviceProvider; 
+        private readonly IUserServiceModel _serviceProvider; 
 
         public ServiceModelUnitTest()
         {
             var webHost = WebHost.CreateDefaultBuilder()
                      .UseStartup<Startup>()
                      .Build();
-            _serviceProvider = new DependencyResolverHelper(webHost);
+            _serviceProvider = new DependencyResolverHelper(webHost).GetService<IUserServiceModel>();
+           
         }
     
 
@@ -35,7 +36,7 @@ namespace Sat.Recruitment.Test
         public async Task CreateUserOk()
         {
             Random random = new Random();
-            var service = _serviceProvider.GetService<IUserServiceModel>();
+         
             var userRequest = new UserRequest
             {
                 IdGuid = Guid.NewGuid(),
@@ -46,7 +47,7 @@ namespace Sat.Recruitment.Test
                 UserType = UserType.Normal,
                 Money = random.Next(random.Next(0, 200)),
             };
-            var response = await service.Create(userRequest);
+            var response = await _serviceProvider.Create(userRequest);
             Assert.True(userRequest.IdGuid == response.IdGuid);
         }
 
@@ -55,7 +56,6 @@ namespace Sat.Recruitment.Test
         public async Task CreateUser_Fail_Duplicate()
         {
             Random random = new Random();
-            var service = _serviceProvider.GetService<IUserServiceModel>();
             var userRequest = new UserRequest
             {
                 IdGuid = Guid.NewGuid(),
@@ -66,16 +66,16 @@ namespace Sat.Recruitment.Test
                 UserType = UserType.Normal,
                 Money = random.Next(random.Next(0, 200)),
             };
-            var response = await service.Create(userRequest);
+            var response = await _serviceProvider.Create(userRequest);
 
-            await Assert.ThrowsAsync<ValidationException>(() =>  service.Create(userRequest));
+            await Assert.ThrowsAsync<ValidationException>(() => _serviceProvider.Create(userRequest));
         }
 
         [Fact]
         public async Task CreateUser_Fail_RequiredField()
         {
             Random random = new Random();
-            var service = _serviceProvider.GetService<IUserServiceModel>();
+
             var userRequest = new UserRequest
             {
                 IdGuid = Guid.NewGuid(),
@@ -86,14 +86,13 @@ namespace Sat.Recruitment.Test
                 UserType = UserType.Normal,
                 Money = random.Next(random.Next(0, 200)),
             };
-            await Assert.ThrowsAsync<ValidationException>(() => service.Create(userRequest));
+            await Assert.ThrowsAsync<ValidationException>(() => _serviceProvider.Create(userRequest));
         }
 
         [Fact]
         public async Task CreateUser_Fail_BadFormatEmail()
         {
             Random random = new Random();
-            var service = _serviceProvider.GetService<IUserServiceModel>();
             var userRequest = new UserRequest
             {
                 IdGuid = Guid.NewGuid(),
@@ -104,7 +103,7 @@ namespace Sat.Recruitment.Test
                 UserType = UserType.Normal,
                 Money = random.Next(random.Next(0, 200)),
             };
-            await Assert.ThrowsAsync<ValidationException>(() => service.Create(userRequest));
+            await Assert.ThrowsAsync<ValidationException>(() => _serviceProvider.Create(userRequest));
         }
     }
 }
