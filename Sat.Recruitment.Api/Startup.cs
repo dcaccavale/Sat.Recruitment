@@ -25,8 +25,7 @@ namespace Sat.Recruitment.Api
             services.AddDatabaseService();
             services.AddRepositoriesServicesExtensions();
             services.AddServiceModelServicesExtensions();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddLogging();
+            services.AddAppExtensionsServices();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sat.Recruitment", Version = "v1" });
