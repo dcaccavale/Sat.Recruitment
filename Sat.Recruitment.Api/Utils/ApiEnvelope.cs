@@ -1,6 +1,4 @@
-﻿
-using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 
 namespace Sat.Recruitment.Api.Utils
 {

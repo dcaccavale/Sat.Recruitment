@@ -4,11 +4,9 @@ using Sat.Recruitment.DataAccess.Repositories;
 using Sat.Recruitment.Model.Calculate;
 using Sat.Recruitment.Model.Entities;
 using Sat.Recruitment.Model.Request;
-using Sat.Recruitment.Model.Response;
 using Sat.Recruitment.Model.Request.Validations;
-using System;
+using Sat.Recruitment.Model.Response;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Service

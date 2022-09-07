@@ -1,10 +1,6 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Sat.Recruitment.Api.Controllers;
-using Sat.Recruitment.Model.Request;
-using Sat.Recruitment.Model.Request.Validations;
 using System;
 
 namespace Sat.Recruitment.Api.Utils.Extensions

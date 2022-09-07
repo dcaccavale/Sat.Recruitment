@@ -1,10 +1,5 @@
-using System;
-using System.Dynamic;
-
-using Microsoft.AspNetCore.Mvc;
-
-using Sat.Recruitment.Api.Controllers;
 using Sat.Recruitment.Service.Utils;
+using System;
 using Xunit;
 
 namespace Sat.Recruitment.Test

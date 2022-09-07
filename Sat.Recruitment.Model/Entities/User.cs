@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Sat.Recruitment.Model.Entities
+﻿namespace Sat.Recruitment.Model.Entities
 {
     /// <summary>
     /// Type of Users 

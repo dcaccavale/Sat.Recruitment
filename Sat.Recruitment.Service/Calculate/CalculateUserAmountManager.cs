@@ -1,12 +1,6 @@
-﻿using Sat.Recruitment.Model.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sat.Recruitment.Model.Entities;
+using Sat.Recruitment.Model.Interfaces;
 using Sat.Recruitment.Service.Utils;
-using Sat.Recruitment.Model.Entities;
 
 namespace Sat.Recruitment.Model.Calculate
 {

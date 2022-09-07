@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using Sat.Recruitment.Model.Entities;
-using Sat.Recruitment.Model.Request;
-using System;
-using System.Text;
 
 namespace Sat.Recruitment.Model.Request.Validations
 {

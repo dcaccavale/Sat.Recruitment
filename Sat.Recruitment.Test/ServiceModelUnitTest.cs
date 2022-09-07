@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Sat.Recruitment.Api;
-using Sat.Recruitment.Api.Controllers;
-using Sat.Recruitment.Api.Utils.Extensions;
 using Sat.Recruitment.Model.Entities;
 using Sat.Recruitment.Model.Request;
 using Sat.Recruitment.Service;

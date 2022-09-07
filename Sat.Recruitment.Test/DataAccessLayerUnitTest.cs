@@ -1,23 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Dynamic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
 using Sat.Recruitment.Api;
-using Sat.Recruitment.DataAccess;
 using Sat.Recruitment.DataAccess.Repositories;
 using Sat.Recruitment.Model.Entities;
 using Sat.Recruitment.Test.Helpers;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sat.Recruitment.Test

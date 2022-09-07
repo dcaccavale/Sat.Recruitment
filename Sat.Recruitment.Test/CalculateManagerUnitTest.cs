@@ -1,9 +1,3 @@
-using System;
-using System.Dynamic;
-
-using Microsoft.AspNetCore.Mvc;
-
-using Sat.Recruitment.Api.Controllers;
 using Sat.Recruitment.Model;
 using Sat.Recruitment.Model.Calculate;
 using Sat.Recruitment.Model.Entities;

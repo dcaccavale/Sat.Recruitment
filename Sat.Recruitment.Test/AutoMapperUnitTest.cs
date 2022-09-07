@@ -1,6 +1,5 @@
 
 using AutoMapper;
-using AutoMapper.Extensions.EnumMapping;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Sat.Recruitment.Api;

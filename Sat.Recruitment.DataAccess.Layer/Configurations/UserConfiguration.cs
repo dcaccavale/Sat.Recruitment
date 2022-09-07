@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sat.Recruitment.Model.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sat.Recruitment.DataAccess.Configurations
 {

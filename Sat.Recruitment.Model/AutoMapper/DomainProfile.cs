@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Sat.Recruitment.Model.Response;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Sat.Recruitment.Model.Request;
 using Sat.Recruitment.Model.Entities;
+using Sat.Recruitment.Model.Request;
+using Sat.Recruitment.Model.Response;
 
 namespace Sat.Recruitment.Model.AutoMapper
 {

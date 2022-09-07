@@ -1,11 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
-using Sat.Recruitment.Model;
 using Sat.Recruitment.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sat.Recruitment.DataAccess.Repositories
