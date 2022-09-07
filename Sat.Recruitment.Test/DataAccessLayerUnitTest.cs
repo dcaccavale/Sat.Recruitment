@@ -32,11 +32,22 @@ namespace Sat.Recruitment.Test
         [Fact]
         public async Task FirstOrDefaultAsync()
         {
-
-            var result = await _UserRepository.FirstOrDefaultAsync<User>(u=> u.Id == 1);
+            var guid = Guid.NewGuid(); 
+            User user = new User
+            {
+                IdGuid = guid,
+                Name = "prueba" + Guid.NewGuid().ToString(),
+                Email = Guid.NewGuid() + "prueba@gmail.com",
+                Address = Guid.NewGuid() + "calle charles 855",
+                Phone = Guid.NewGuid() + "5255555555",
+                Type = UserType.Normal,
+                Money = 125
+            };
+            await _UserRepository.Add<User>(user);
+            var result = await _UserRepository.FirstOrDefaultAsync<User>(u=> u.IdGuid == guid);
            // var okResult = result as ObjectResult;
             Assert.NotNull(result);
-            Assert.True(1 == result.Id);
+            Assert.True(result.IdGuid == guid);
         }
 
         /// <summary>
@@ -46,7 +57,19 @@ namespace Sat.Recruitment.Test
         [Fact]
         public async Task GetAllAsync()
         {
-           
+            var guid = Guid.NewGuid();
+            User user = new User
+            {
+                IdGuid = guid,
+                Name = "prueba" + Guid.NewGuid().ToString(),
+                Email = Guid.NewGuid() + "prueba@gmail.com",
+                Address = Guid.NewGuid() + "calle charles 855",
+                Phone = Guid.NewGuid() + "5255555555",
+                Type = UserType.Normal,
+                Money = 125
+            };
+            await _UserRepository.Add<User>(user);
+
             var result = await _UserRepository.GetAllAsync<User>();
             Assert.NotNull(result);
             Assert.True( result.Count() > 0);
@@ -59,6 +82,18 @@ namespace Sat.Recruitment.Test
         [Fact]
         public async Task GetAllAsyncByCriteria()
         {
+            var guid = Guid.NewGuid();
+            User user = new User
+            {
+                IdGuid = guid,
+                Name = "prueba",
+                Email =  "prueba@gmail.com",
+                Address = "calle charles 855",
+                Phone = "5255555555",
+                Type = UserType.Normal,
+                Money = 125
+            };
+            await _UserRepository.Add<User>(user);
 
             var result = await _UserRepository.GetAllAsync<User>(u=> u.Id == 1);
             Assert.NotNull(result);
@@ -72,18 +107,40 @@ namespace Sat.Recruitment.Test
         [Fact]
         public async Task GetAsync()
         {
-
-            var Auxresult = await _UserRepository.GetAllAsync<User>(u => u.Id == 1);
-            var result = await _UserRepository.GetAsync<User>(Auxresult[0].IdGuid);
+            var guid = Guid.NewGuid();
+            User user = new User
+            {
+                IdGuid = guid,
+                Name = "prueba",
+                Email = "prueba@gmail.com",
+                Address = "calle charles 855",
+                Phone = "5255555555",
+                Type = UserType.Normal,
+                Money = 125
+            };
+            await _UserRepository.Add<User>(user);
+            var result = await _UserRepository.GetAsync<User>(guid);
             Assert.NotNull(result);
-            Assert.True(Auxresult[0].IdGuid == result.IdGuid);
+            Assert.True(guid == result.IdGuid);
         }
 
 
         [Fact]
         public async Task Any()
         {
-            Assert.True(await _UserRepository.Any<User>(u => u.Id == 1));
+            var guid = Guid.NewGuid();
+            User user = new User
+            {
+                IdGuid = guid,
+                Name = "prueba",
+                Email = "prueba@gmail.com",
+                Address = "calle charles 855",
+                Phone = "5255555555",
+                Type = UserType.Normal,
+                Money = 125
+            };
+            await _UserRepository.Add<User>(user);
+            Assert.True(await _UserRepository.Any<User>(u => u.IdGuid == guid));
         }
 
 

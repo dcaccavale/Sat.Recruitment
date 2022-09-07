@@ -22,6 +22,12 @@ namespace Sat.Recruitment.Api.Utils.Extensions
                             dbOptions => dbOptions.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds)
                                                   .MigrationsAssembly("Sat.Recruitment.DataAccess"));
                     });
+            //services
+            //      .AddDbContext<SatRecruitmentContext>(options =>
+            //      {
+
+            //          options.UseInMemoryDatabase("SatRecruitment");
+            //      });
         }
     }
 }
