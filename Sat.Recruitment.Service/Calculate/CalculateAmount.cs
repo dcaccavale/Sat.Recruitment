@@ -23,7 +23,7 @@ namespace Sat.Recruitment.Model
             decimal multiplicator = 0;
             if (money > 100)
             {
-                multiplicator = 0.20m;
+                multiplicator = 0.12m;
             }
             else if(money < 100 && money > 10)
             {
