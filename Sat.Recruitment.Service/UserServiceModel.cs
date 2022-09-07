@@ -66,7 +66,7 @@ namespace Sat.Recruitment.Service
         private Task<bool> IsDuplicated(UserRequest userRequest, IUserRepository userRepository)
         {
             return _userRepository.Any<User>(user => (user.Email == userRequest.Email || user.Phone == userRequest.Phone)
-            || (user.Name == userRequest.Name && user.Address == userRequest.Address)
+            || (user.Name == userRequest.Name && user.Address == userRequest.Address) || user.IdGuid == userRequest.IdGuid
             );
         }
     }
