@@ -18,6 +18,7 @@ namespace Sat.Recruitment.Model.Entities
         public string? Phone { get; set; }
         public UserType Type { get; set; }
         public decimal Money { get; set; }
+       
     }
 
 }

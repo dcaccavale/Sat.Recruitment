@@ -25,10 +25,7 @@ namespace Sat.Recruitment.Api
             services.AddDatabaseService();
             services.AddRepositoriesServicesExtensions();
             services.AddServiceModelServicesExtensions();
-        
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-         
-            // services.AddAutoMapper(typeof(DomainProfile).Assembly);
             services.AddLogging();
             services.AddSwaggerGen(c =>
             {
