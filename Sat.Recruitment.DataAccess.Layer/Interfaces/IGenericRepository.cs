@@ -27,6 +27,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
     public interface IGenericRepositoryOperations
     {
         Task<T> Add<T>(T entity) where T : Entity;
+        Task<IList<T>> AddRange<T>(IList<T> entityList) where T : Entity;
         Task<T> Update<T>(T entity) where T : Entity;
         Task<T> Delete<T>(T entity) where T : Entity;
         Task<T> Remove<T>(T entity) where T : Entity;

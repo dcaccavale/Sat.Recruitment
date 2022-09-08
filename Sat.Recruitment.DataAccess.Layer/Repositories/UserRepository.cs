@@ -8,7 +8,12 @@
 
         public UserRepository(SatRecruitmentContext dataContext) : base(dataContext) { }
 
+       
 
+        public void initModel(int countRecordToAdd = 0)
+        {
+            DbInitializer.InitDataBase(_dataContext, countRecordToAdd);
+        }
     }
 
 }

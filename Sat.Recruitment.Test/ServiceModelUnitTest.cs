@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Sat.Recruitment.Api;
 using Sat.Recruitment.Model.Entities;
 using Sat.Recruitment.Model.Request;
+using Sat.Recruitment.Model.Response;
 using Sat.Recruitment.Service;
 using Sat.Recruitment.Test.Helpers;
 using System;
@@ -35,14 +36,16 @@ namespace Sat.Recruitment.Test
             var userRequest = new UserRequest
             {
                 Name = "prueba" + Guid.NewGuid().ToString(),
-                Email = Guid.NewGuid() + "prueba@gmail.com",
-                Address = Guid.NewGuid() +"calle charles 855",
-                Phone = Guid.NewGuid() + "5255555555",
+                Email = Guid.NewGuid().ToString() +"prueba@gmail.com",
+                Address = "calle charles 855" + Guid.NewGuid().ToString(),
+                Phone =   "5255555555" + Guid.NewGuid().ToString(),
                 UserType = UserType.Normal,
                 Money = random.Next(random.Next(0, 200)),
             };
             var response = await _serviceProvider.Create(userRequest);
-            Assert.True(response.IdGuid != Guid.Empty);
+            Assert.IsType<UserResponse>(response);
+            Assert.NotNull(response);
+            Assert.NotEmpty(response.Name);
         }
 
 

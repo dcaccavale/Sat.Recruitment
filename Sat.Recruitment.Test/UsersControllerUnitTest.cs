@@ -38,16 +38,16 @@ namespace Sat.Recruitment.Test
             Random random = new Random();
             var userRequest = new UserRequest
             {
-                Name = "prueba" + Guid.NewGuid().ToString(),
-                Email = Guid.NewGuid() + "prueba@gmail.com",
-                Address = Guid.NewGuid() + "calle charles 855",
-                Phone = Guid.NewGuid() + "5255555555",
+                Name = "prueba",
+                Email =  "prueba@gmail.com",
+                Address =  "calle charles 855",
+                Phone =  "5255555555",
                 UserType = UserType.Normal,
                 Money = random.Next(random.Next(0, 200)),
             };
             var response = await _usersController.CreateUser(userRequest);
             var okResult = response as ObjectResult;
-            Assert.NotNull(response);
+            Assert.NotNull(okResult);
              Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
         }
 

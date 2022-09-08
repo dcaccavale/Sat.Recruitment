@@ -109,7 +109,26 @@ namespace Sat.Recruitment.DataAccess.Repositories
             entity.CreateDateTime = DateTime.Now;
             _dataContext.Set<T>().Add(entity);
             await _dataContext.SaveChangesAsync();
-            return await GetAsync<T>(entity.IdGuid);
+            return await FirstOrDefaultAsync<T>(e=> e.Id == entity.Id);
+        }
+        /// <summary>
+        /// Generic Add Range of Entity to Set
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public async Task<IList<T>> AddRange<T>(IList<T> entityList) where T : Entity
+        {
+            entityList.ToList().ForEach(e =>
+            {
+                e.State = StateEntity.Created;
+                e.CreateDateTime = DateTime.Now;
+            }
+            );
+
+             _dataContext.Set<T>().AddRange(entityList);
+            await _dataContext.SaveChangesAsync();
+            return  entityList;
         }
 
         /// <summary>
@@ -124,7 +143,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
             entity.UpdatedDateTime = DateTime.Now;
             _dataContext.Set<T>().Update(entity);
             await _dataContext.SaveChangesAsync();
-            return await GetAsync<T>(entity.IdGuid);
+            return await FirstOrDefaultAsync<T>(e => e.Id == entity.Id);
         }
         /// <summary>
         /// Generic fisical Delete 
@@ -136,7 +155,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         {
             _dataContext.Set<T>().Remove(entity);
             _dataContext.SaveChanges();
-            return await GetAsync<T>(entity.IdGuid);
+            return await FirstOrDefaultAsync<T>(e => e.Id == entity.Id);
         }
 
         /// <summary>
@@ -151,7 +170,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
             entity.DeleteDateTime = DateTime.Now;
             _dataContext.Set<T>().Update(entity);
             _dataContext.SaveChanges();
-            return await GetAsync<T>(entity.IdGuid);
+            return await FirstOrDefaultAsync<T>(e => e.Id == entity.Id);
         }
 
 
