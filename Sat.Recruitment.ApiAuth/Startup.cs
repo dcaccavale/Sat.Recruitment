@@ -1,15 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Sat.Recruitment.Api.Utils.Extensions;
 using System.Text;
 
-namespace Sat.Recruitment.Api
+namespace JWTAuth.WebApi
 {
     public class Startup
     {
@@ -24,10 +17,6 @@ namespace Sat.Recruitment.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDatabaseService();
-            services.AddRepositoriesServicesExtensions();
-            services.AddServiceModelServicesExtensions();
-            services.AddAppExtensionsServices();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

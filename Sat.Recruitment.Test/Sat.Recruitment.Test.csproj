@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sat.Recruitment.ApiAuth\Sat.Recruitment.ApiAuth.csproj" />
     <ProjectReference Include="..\Sat.Recruitment.Api\Sat.Recruitment.Api.csproj" />
     <ProjectReference Include="..\Sat.Recruitment.DataAccess.Layer\Sat.Recruitment.DataAccess.csproj" />
     <ProjectReference Include="..\Sat.Recruitment.Helpers\Sat.Recruitment.Helpers.csproj" />

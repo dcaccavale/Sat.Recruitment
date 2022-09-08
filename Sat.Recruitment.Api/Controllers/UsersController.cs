@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sat.Recruitment.Api.Utils;
 using Sat.Recruitment.Model.Request;
@@ -26,8 +27,9 @@ namespace Sat.Recruitment.Api.Controllers
             _logger = logger;
         }
         [HttpPost]
-        [Route("/create-user")]
-        [MapToApiVersion("1.0")]
+        [Authorize]
+       
+    [MapToApiVersion("1.0")]
         public async Task<IActionResult> CreateUser(UserRequest userRequest)
         {
        

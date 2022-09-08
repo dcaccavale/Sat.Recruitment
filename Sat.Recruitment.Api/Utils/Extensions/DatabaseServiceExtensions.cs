@@ -13,26 +13,26 @@ namespace Sat.Recruitment.Api.Utils.Extensions
         /// <param name="services"></param>
         public static void AddDatabaseService(this IServiceCollection services)
         {
-            //services
-            //       .AddDbContext<SatRecruitmentContext>(options =>
-            //        {
-
-            //            options.UseSqlServer(
-            //                "Data Source=localhost;Initial Catalog=SatRecruitment;User Id=sa; Password=smart1",
-            //                dbOptions => dbOptions.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds)
-            //                                      .MigrationsAssembly("Sat.Recruitment.DataAccess")
-            //                                      .EnableRetryOnFailure(
-            //                    maxRetryCount: 10,
-            //                    maxRetryDelay: TimeSpan.FromSeconds(30),
-            //                    errorNumbersToAdd: null)
-            //          );
-            //        });
             services
-                  .AddDbContext<SatRecruitmentContext>(options =>
-                  {
+                   .AddDbContext<SatRecruitmentContext>(options =>
+                    {
 
-                      options.UseInMemoryDatabase("SatRecruitment");
-                  });
+                        options.UseSqlServer(
+                            "Data Source=localhost;Initial Catalog=SatRecruitment;User Id=sa; Password=smart1",
+                            dbOptions => dbOptions.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds)
+                                                  .MigrationsAssembly("Sat.Recruitment.DataAccess")
+                                                  .EnableRetryOnFailure(
+                                maxRetryCount: 10,
+                                maxRetryDelay: TimeSpan.FromSeconds(30),
+                                errorNumbersToAdd: null)
+                      );
+                    });
+            //services
+            //      .AddDbContext<SatRecruitmentContext>(options =>
+            //      {
+
+            //          options.UseInMemoryDatabase("SatRecruitment");
+            //      });
         }
     }
 }
