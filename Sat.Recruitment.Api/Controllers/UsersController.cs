@@ -6,6 +6,7 @@ using Sat.Recruitment.Model.Request.Validations;
 using Sat.Recruitment.Model.Response;
 using Sat.Recruitment.Service;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace Sat.Recruitment.Api.Controllers
             UserResponse result = null;
             HttpStatusCode httpStatusCode = HttpStatusCode.InternalServerError;
             string messagge = string.Empty;
-  
+
             try
             {
                 UserRequestValidate userValidate = new UserRequestValidate();
@@ -53,6 +54,16 @@ namespace Sat.Recruitment.Api.Controllers
                     _logger.LogWarning(messagge);
 
                 }
+            }
+            catch (TypeLoadException ex)
+            {
+                _logger.LogError(ex.Message);
+                messagge = ex.Message;
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogError(ex.Message);
+                messagge = ex.Message;
             }
             catch (Exception ex)
             {

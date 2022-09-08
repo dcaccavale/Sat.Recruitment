@@ -107,6 +107,7 @@ namespace Sat.Recruitment.DataAccess.Repositories
         {
             entity.State = StateEntity.Created;
             entity.CreateDateTime = DateTime.Now;
+            entity.IdGuid = Guid.NewGuid();
             _dataContext.Set<T>().Add(entity);
             await _dataContext.SaveChangesAsync();
             return await FirstOrDefaultAsync<T>(e=> e.Id == entity.Id);
