@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sat.Recruitment.DataAccess.Layer\Sat.Recruitment.DataAccess.csproj" />
+    <ProjectReference Include="..\Sat.Recruitment.Model\Sat.Recruitment.Model.csproj" />
     <ProjectReference Include="..\Sat.Recruitment.Service\Sat.Recruitment.Service.csproj" />
   </ItemGroup>
 

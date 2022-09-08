@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Sat.Recruitment.ApiAuth.ModelAuth;
+using Sat.Recruitment.ApiAuth.DataAccess;
+using Sat.Recruitment.ApiAuth.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Logging;
 using System.Text;
-
-namespace JWTAuth.WebApi.Controllers
+namespace Sat.Recruitment.ApiAuth.Controllers
 {
 
     [Route("v{version:apiVersion}/api/token")]
@@ -13,18 +14,25 @@ namespace JWTAuth.WebApi.Controllers
     public class TokenController : ControllerBase
     {
         public IConfiguration _configuration;
-      
-        public TokenController(IConfiguration config)
+        public ApiAuthContext _apiAuthContext;
+        public ILogger<UserInfoRequest> _logger;
+       
+
+        public TokenController(IConfiguration config, ApiAuthContext apiAuthContext, ILogger<UserInfoRequest> logger)
         {
             _configuration = config;
-           
+            _apiAuthContext = apiAuthContext;
+            _logger = logger;   
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Post(UserInfo _userData)
+        public async Task<IActionResult> Post(UserInfoRequest _userData)
         {
-            if (_userData != null && !string.IsNullOrWhiteSpace(_userData.Email) && !string.IsNullOrWhiteSpace(_userData.Password))
+            UserInfoRequestValidate userValidate = new UserInfoRequestValidate();
+            var validatorResult = userValidate.Validate(_userData);
+
+            if (validatorResult.IsValid)
             {
                 var user = GetUser(_userData.Email, _userData.Password);
 
@@ -35,7 +43,7 @@ namespace JWTAuth.WebApi.Controllers
                         new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                        new Claim("UserId", user.UserId.ToString()),
+                        new Claim("UserId", user.IdGuid.ToString()),
                         new Claim("DisplayName", user.DisplayName),
                         new Claim("UserName", user.UserName),
                         new Claim("Email", user.Email)
@@ -49,38 +57,26 @@ namespace JWTAuth.WebApi.Controllers
                         claims,
                         expires: DateTime.UtcNow.AddMinutes(10),
                         signingCredentials: signIn);
-
+                    _logger.LogInformation("Token Created");
                     return Ok(new JwtSecurityTokenHandler().WriteToken(token));
                 }
                 else
                 {
+                    _logger.LogWarning("Invalid credentials");
                     return BadRequest("Invalid credentials");
                 }
             }
             else
             {
-                return BadRequest();
+               var  messagge = validatorResult.ToString(" - ");
+                _logger.LogWarning(messagge);
+                return BadRequest(messagge);
             }
         }
-
-        //TODO Use to repository to look for user, this implementation if only for a demostration
-        // To Do add repository , context and serviceModel to access to data user store in data base
         private UserInfo? GetUser(string email, string password)
         {
-
-            if (email == "user" && password == "123") {
-                return new UserInfo()
-                {
-                    DisplayName = "User",
-                    Email = "user",
-                    Password = "123",
-                    UserName = "User",
-                    UserId = 1,
-                    CreatedDate = DateTime.Now
-
-                };
-            }
-            return null;
+            return _apiAuthContext.UserInfo.FirstOrDefault(user => user.Email == email && user.Password == password); 
+           
         }
     }
 }

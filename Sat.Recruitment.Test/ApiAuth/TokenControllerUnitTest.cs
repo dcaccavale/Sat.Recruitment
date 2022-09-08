@@ -1,13 +1,14 @@
-
-using JWTAuth.WebApi.Controllers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Sat.Recruitment.ApiAuth.ModelAuth;
-using Sat.Recruitment.Test.Helpers;
+using Sat.Recruitment.ApiAuth;
+using Sat.Recruitment.ApiAuth.Controllers;
+using Sat.Recruitment.ApiAuth.DataAccess;
+using Sat.Recruitment.ApiAuth.Extensions;
 using System.Text;
 using Xunit;
 
@@ -46,25 +47,30 @@ namespace Sat.Recruitment.Test.ApiAuth
             builder.Services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
-                options.Conventions.Controller<JWTAuth.WebApi.Controllers.TokenController>().HasApiVersion(new ApiVersion(1, 0));
+                options.Conventions.Controller<TokenController>().HasApiVersion(new ApiVersion(1, 0));
                 options.AssumeDefaultVersionWhenUnspecified = true;
             });
-            var pp = builder.Build();
-             _tokenController = new TokenController(pp.Configuration);
+            builder.Services.AddDatabaseService();
+            builder.Services.AddLogging();
 
-         
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var logger = serviceProvider.GetService<ILogger<UserInfoRequest>>();
+            var app = builder.Build();
+            var context = serviceProvider.GetService<ApiAuthContext>();
+            DbInitializer.Initialize(serviceProvider);
+            _tokenController = new TokenController(app.Configuration, context,logger );
+
+
+
         }
 
         [Fact]
         public async void TokenController_Post_Token_200OK()
         {
-            UserInfo user = new UserInfo
+            UserInfoRequest user = new UserInfoRequest
             {
-                UserName = "test",
                 Password = "123",
-                Email = "user",
-                DisplayName ="USer"
-               
+                Email = "user@user",
             };
             var response = await _tokenController.Post(user);
             var okResult = response as ObjectResult;
@@ -76,16 +82,14 @@ namespace Sat.Recruitment.Test.ApiAuth
         [Fact]
         public async void TokenController_Post_Token_BadRequest_EmailAndPasswordAreRequired()
         {
-            UserInfo user = new UserInfo
+            UserInfoRequest user = new UserInfoRequest
             {
-                UserName = "User",
                 Password = "",
-                Email = "",
-                DisplayName = "USer MEMO"
+                Email = ""
 
             };
             var response = await _tokenController.Post(user);
-            var okResult = response as BadRequestResult;
+            var okResult = response as BadRequestObjectResult;
             Assert.NotNull(response);
             Assert.Equal(StatusCodes.Status400BadRequest, okResult.StatusCode);
 
@@ -94,13 +98,10 @@ namespace Sat.Recruitment.Test.ApiAuth
         [Fact]
         public async void TokenController_Post_Token_BadRequest_FailAuth()
         {
-            UserInfo user = new UserInfo
+            UserInfoRequest user = new UserInfoRequest
             {
-                UserName = "",
                 Password = "not",
-                Email = "not",
-                DisplayName = "USer MEMO"
-
+                Email = "user",
             };
             var response = await _tokenController.Post(user);
             var okResult = response as BadRequestObjectResult;
