@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  sat.recruitment.apiauth:
+    image: ${DOCKER_REGISTRY-}satrecruitmentapiauth
+    build:
+      context: .
+      dockerfile: Sat.Recruitment.ApiAuth/Dockerfile
